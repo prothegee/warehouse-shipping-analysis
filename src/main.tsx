@@ -9,7 +9,7 @@ import App from "./App";
 
 async function enableMocking(): Promise<void> {
   if (import.meta.env.MODE !== 'development') return;
-  await worker.start({ onUnhandledRequest: 'bypass' });
+  await worker.start({ onUnhandledFrame: 'bypass' });
 }
 
 const queryClient = new QueryClient({

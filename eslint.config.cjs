@@ -52,4 +52,15 @@ module.exports = defineConfig([{
             version: "detect",
         },
     },
+}, {
+    files: ["**/*.cjs"],
+    languageOptions: {
+        globals: {
+            ...globals.node,
+        },
+        sourceType: "commonjs",
+    },
+    rules: {
+        "@typescript-eslint/no-require-imports": "off",
+    },
 }, globalIgnores(["**/dist", "**/.eslintrc.cjs", "public/mockServiceWorker.js"])]);
