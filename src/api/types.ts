@@ -1,15 +1,15 @@
-// Core domain types for GudangKu shipment tracking
+// Core domain types for warehouse shipment tracking
 
 export type ShipmentStatus =
-  | 'received'
-  | 'sorting'
-  | 'ready_to_dispatch'
-  | 'dispatched'
-  | 'delivered'
-  | 'on_hold'
-  | 'cancelled';
+  | "received"
+  | "sorting"
+  | "ready_to_dispatch"
+  | "dispatched"
+  | "delivered"
+  | "on_hold"
+  | "cancelled";
 
-export type Priority = 'normal' | 'urgent' | 'critical';
+export type Priority = "normal" | "urgent" | "critical";
 
 export interface Carrier {
   name: string;
@@ -31,15 +31,15 @@ export interface Shipment {
   notes?: string;          // Optional, sometimes contains HTML-like content
   created_at: string;      // ISO 8601
   updated_at: string;      // ISO 8601 - used for "delayed" computation in stats
-  delivered_at?: string;   // ISO 8601 - only set when status is 'delivered'
+  delivered_at?: string;   // ISO 8601 - only set when status is "delivered"
 }
 
 export interface StatsResponse {
-  total_received: number;   // Count of status === 'received'
-  total_pending: number;    // Count of 'sorting' + 'ready_to_dispatch'
-  total_dispatched: number; // Count of 'dispatched' + 'delivered'
+  total_received: number;   // Count of status === "received"
+  total_pending: number;    // Count of "sorting" + "ready_to_dispatch"
+  total_dispatched: number; // Count of "dispatched" + "delivered"
   total_delayed: number;    // received/sorting/ready_to_dispatch with updated_at > 2h ago
-  total_on_hold: number;    // Count of 'on_hold' + 'cancelled'
+  total_on_hold: number;    // Count of "on_hold" + "cancelled"
 }
 
 // SSE event payload types - used by GET /api/shipments/stream
@@ -66,18 +66,18 @@ export interface RouteSuggestionRequest {
 // Valid status machine transitions - single source of truth for both the mock API
 // and candidate UI code. Import this to enforce valid transitions client-side.
 export const VALID_TRANSITIONS: Record<ShipmentStatus, ShipmentStatus[]> = {
-  received: ['sorting'],
-  sorting: ['ready_to_dispatch', 'on_hold'],
-  ready_to_dispatch: ['dispatched'],
-  dispatched: ['delivered'],
+  received: ["sorting"],
+  sorting: ["ready_to_dispatch", "on_hold"],
+  ready_to_dispatch: ["dispatched"],
+  dispatched: ["delivered"],
   delivered: [],
-  on_hold: ['sorting', 'cancelled'],
+  on_hold: ["sorting", "cancelled"],
   cancelled: [],
 };
 
 // Discriminated union of all SSE event shapes from GET /api/shipments/stream.
 // Use the `event` field to narrow the payload type in a switch statement.
 export type SSEEvent =
-  | { event: 'new_shipment'; data: NewShipmentEvent }
-  | { event: 'status_change'; data: StatusChangeEvent }
-  | { event: 'priority_update'; data: PriorityUpdateEvent };
+  | { event: "new_shipment"; data: NewShipmentEvent }
+  | { event: "status_change"; data: StatusChangeEvent }
+  | { event: "priority_update"; data: PriorityUpdateEvent };
