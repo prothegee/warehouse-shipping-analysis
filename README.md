@@ -2,11 +2,9 @@
 
 Warehouse shipment tracking and shift performance analytics in a React app with API runs in the browser for shipment data. Route suggestions powered by stream data from a AI server.
 
-Dashboard View<br>
-![Dashboard](docs/vid/dashboard-preview.mp4)
+[Dashbaoard View](https://github.com/user-attachments/assets/5c9e0d4a-60e8-44dd-9e64-15d662588e1d)
 
-Performance View<br>
-![Performance](docs/img/performacne-preview.png)
+![Performance](https://github.com/prothegee/warehouse-shipping-analysis/blob/main/docs/img/performance-preview.png)
 
 <br>
 
